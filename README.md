@@ -24,6 +24,7 @@ register accepts 3 parameters:
 
 ##Starting a server
 
+```
 var http = require('http');
 http.createServer(minix.Handler).listen(8080,"127.0.0.1");
 ```
