@@ -1,28 +1,46 @@
-var Minix = {};
-endpoints = [];
+/**
+ * MINIX
+ * The extremely lightweight routing library.
+ * It simply maps regular expressions to functions.
+ * You pass it a string, if it finds an expression that matches,
+ * it returns the mapped function!
+ */
 
-Minix.register = function (url_regex, method, callback) {
-    if(typeof endpoints[url_regex] === "undefined") {
-        endpoints[url_regex] = {};
+//The map of strings to functions
+var endpoints = {}
+
+//The default function to return when no regex's match
+var fallback = function() {}
+
+/**
+ * Route checks the endpoints for a regex that evaluates to true against
+ * the url. In the event a match is found, route returns its function,
+ * if not route returns the fallback function. The fallback function
+ * can be set using module.exports.setFallback(cb)
+ */
+module.exports = function route(url) {
+  var callback
+  Object.keys(endpoints).forEach(function(val) {
+    if(callback) return
+    if(url.match(val)) {
+      callback = endpoints[val]
     }
-    endpoints[url_regex][method.toUpperCase()] = callback;
+  })
+  callback = callback || fallback
+  return callback
 }
 
-Minix.Handler = function (req,res) {
-    if(Object.keys(endpoints).every(function (regex,index,array) {
-        if(req.url.match(regex)) {
-            method = req.method.toUpperCase();
-            methods = endpoints[regex];
-            if(methods.hasOwnProperty(method)) {
-                methods[method](req,res);
-                return false;
-            }
-        }
-        return true;
-    }))
-    res.writeHead(404,{'Content-Type':'application/json'});
-    res.write('{"Status Code":404,"Status":"404 Not Found","Message":"The requested endpoint \''+req.method+" "+req.url+'\' has not been defined on this server"}');
-    res.end();
+/**
+ * setFallback sets the default function to return in the event
+ * route() does not find a matching regex.
+ */
+module.exports.setFallback = function setFallback(cb) {
+  fallback = cb
 }
 
-module.exports = Minix;
+/**
+ * Register a new regular expression and callback for minix to track
+ */
+module.exports.newEndpoint = function(regex,cb) {
+  endpoints[regex] = cb
+}

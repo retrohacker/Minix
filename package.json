@@ -1,6 +1,6 @@
 {
   "name": "minix",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "description": "An extremely lightweight RESTful routing library",
   "main": "minix.js",
   "scripts": {
@@ -8,15 +8,17 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/Crackerz/Minix.git"
+    "url": "git://github.com/wblankenship/Minix.git"
   },
   "keywords": [
-    "REST"
+    "REST",
+    "restful",
+    "routing"
   ],
   "author": "william.jblankenship@gmail.com",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Crackerz/Minix/issues"
+    "url": "https://github.com/wblankenship/Minix/issues"
   },
-  "homepage": "https://github.com/Crackerz/Minix"
+  "homepage": "https://github.com/wblankenship/Minix"
 }
