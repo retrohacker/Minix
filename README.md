@@ -1,4 +1,6 @@
 #Minix
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/retrohacker/Minix.svg)](https://greenkeeper.io/)
 The extremely lightweight RESTful routing library
 
 ---
